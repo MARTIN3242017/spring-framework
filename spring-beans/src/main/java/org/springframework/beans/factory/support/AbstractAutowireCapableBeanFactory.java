@@ -559,6 +559,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * @see #instantiateUsingFactoryMethod
 	 * @see #autowireConstructor
 	 */
+	// ToDo Spring Bean创建的入口 也是我们阅读源码的入口
 	protected Object doCreateBean(String beanName, RootBeanDefinition mbd, @Nullable Object[] args)
 			throws BeanCreationException {
 
@@ -967,6 +968,12 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * @param bean the raw bean instance
 	 * @return the object to expose as bean reference
 	 */
+	//TODO 调用工厂的 getObject 实际会调用这个方法
+	// 这个工厂的作用就是判断这个对象是否需要代理，不需要则直接返回，否则返回代理对象。
+	// 为什么要在三级缓存工厂中做这个判断 我直接放二级缓存里处理不行吗
+	// 可以,但是时机不对 违背的bean的生命周期顺序
+	// 正常bean生命周期 代理对象生成是基于后置处理器的 是在被代理对象初始化后期调用生成的
+	// 如果你提前代理了就违背了bean定义的生命周期咯
 	protected Object getEarlyBeanReference(String beanName, RootBeanDefinition mbd, Object bean) {
 		Object exposedObject = bean;
 		if (!mbd.isSynthetic() && hasInstantiationAwareBeanPostProcessors()) {

@@ -38,6 +38,7 @@ import org.springframework.lang.Nullable;
  * @see org.springframework.beans.factory.support.RootBeanDefinition
  * @see org.springframework.beans.factory.support.ChildBeanDefinition
  */
+//ToDo BeanDefinition中关注两个属性: beanName和classType
 public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 
 	/**
